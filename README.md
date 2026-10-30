@@ -1,9 +1,9 @@
-# NeuroLingo: Adaptive Language Mastery & Spaced Repetition Engine
+﻿# NeuroLingo: Adaptive Language Mastery & Spaced Repetition Engine
 
 A fast, responsive web application and spaced repetition engine designed for advanced French mastery (C1/C2 level) across grammar, phonetics, syntax, and nuanced usage.
 
-- Live Web App: [https://foverse.github.io/NeuroLingo/](https://foverse.github.io/NeuroLingo/)
-- Repository: [https://github.com/foverse/NeuroLingo](https://github.com/foverse/NeuroLingo)
+- Live Web App: [https://foverse.github.io/neurolingo/](https://foverse.github.io/neurolingo/)
+- Repository: [https://github.com/foverse/neurolingo](https://github.com/foverse/neurolingo)
 - Author: [Fouad](https://growthmaker.fr) ([@foverse](https://github.com/foverse))
 - Project Hub: [growthmaker.fr](https://growthmaker.fr)
 - License: MIT
@@ -55,14 +55,14 @@ The application runs entirely client-side in any browser, utilizing the SuperMem
 ## Quick Start
 
 ### Option 1: Browser (Zero Setup)
-Open [https://foverse.github.io/NeuroLingo/](https://foverse.github.io/NeuroLingo/) in any browser to begin practicing immediately.
+Open [https://foverse.github.io/neurolingo/](https://foverse.github.io/neurolingo/) in any browser to begin practicing immediately.
 
 ### Option 2: Run Locally
 Clone the repository and serve the files locally:
 
 ```bash
-git clone https://github.com/foverse/NeuroLingo.git
-cd NeuroLingo
+git clone https://github.com/foverse/neurolingo.git
+cd neurolingo
 npx serve .
 ```
 
@@ -86,23 +86,23 @@ Then visit `http://localhost:3000` in your browser.
 
 ```
 NeuroLingo/
-├── index.html              # Main single-page application layout
-├── css/
-│   └── app.css             # 3D flip card animations and dark mode styling
-├── js/
-│   ├── cards-data.js       # 1,000-card French mastery dataset
-│   ├── srs-engine.js       # SuperMemo SM-2 algorithm and progress store
-│   └── app.js              # State manager, Audio TTS, and event listeners
-├── data/
-│   ├── french_expert_1000_cards.tsv # Full 5-field Anki-ready TSV dataset
-│   └── README_ANKI_GUIDE.md         # Field mapping and import instructions
-├── builder/
-│   ├── validate_deck.py    # Automated card syntax and cloze checker
-│   └── export_tsv.py       # Custom deck compiler and exporter
-├── .github/
-│   └── workflows/
-│       └── deploy.yml      # Automated GitHub Pages deployment
-└── package.json            # Scripts and metadata
+â”œâ”€â”€ index.html              # Main single-page application layout
+â”œâ”€â”€ css/
+â”‚   â””â”€â”€ app.css             # 3D flip card animations and dark mode styling
+â”œâ”€â”€ js/
+â”‚   â”œâ”€â”€ cards-data.js       # 1,000-card French mastery dataset
+â”‚   â”œâ”€â”€ srs-engine.js       # SuperMemo SM-2 algorithm and progress store
+â”‚   â””â”€â”€ app.js              # State manager, Audio TTS, and event listeners
+â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ french_expert_1000_cards.tsv # Full 5-field Anki-ready TSV dataset
+â”‚   â””â”€â”€ README_ANKI_GUIDE.md         # Field mapping and import instructions
+â”œâ”€â”€ builder/
+â”‚   â”œâ”€â”€ validate_deck.py    # Automated card syntax and cloze checker
+â”‚   â””â”€â”€ export_tsv.py       # Custom deck compiler and exporter
+â”œâ”€â”€ .github/
+â”‚   â””â”€â”€ workflows/
+â”‚       â””â”€â”€ deploy.yml      # Automated GitHub Pages deployment
+â””â”€â”€ package.json            # Scripts and metadata
 ```
 
 ---
