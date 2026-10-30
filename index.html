@@ -14,10 +14,19 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/app.css">
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased flex flex-col min-h-screen">
+<body>
+  <div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="."><span class="brand-mark">✳</span><span>NeuroLingo<small>THE ART OF LEARNING FRENCH</small></span></a>
+    <div class="sidebar-label">YOUR STUDY SPACE</div>
+    <div class="sidebar-current"><i data-lucide="layers"></i> Practice cards</div>
+    <div class="sidebar-note"><span>À votre rythme.</span><p>A little practice today makes room for progress tomorrow.</p></div>
+    <a class="sidebar-link" href="https://github.com/foverse/neurolingo" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i> View on GitHub</a>
+  </aside>
+  <div class="page-shell">
 
   <!-- Header -->
-  <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+  <header class="original-header border-b border-slate-900 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
     <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
@@ -46,13 +55,17 @@
   </header>
 
   <!-- Main Content -->
-  <main class="max-w-4xl w-full mx-auto px-4 py-8 flex-1 space-y-6">
+  <div class="topbar"><span>YOUR PERSONAL FRENCH PRACTICE</span><span class="topbar-right"><span class="status-dot"></span> Learning, one card at a time</span></div>
+  <main class="main-content">
+    <section class="welcome"><div><div class="eyebrow">YOUR DAILY PRACTICE <span>✳</span></div><h1>Make French feel <em>natural.</em></h1><p>Build confidence, one thoughtful repetition at a time.</p></div><div class="welcome-note"><span>LE MOT DU JOUR</span><strong>Persévérance</strong><small>Small steps. Lasting progress.</small></div></section>
+    <div class="section-heading"><div><span class="eyebrow">YOUR PROGRESS</span><h2>A little better every day.</h2></div><span class="section-aside">Your learning, at a glance</span></div>
 
     <!-- Progress Overview -->
     <div id="stats-overview"></div>
 
+    <div class="section-heading practice-heading"><div><span class="eyebrow">THE PRACTICE ROOM</span><h2>Ready when you are.</h2></div><span class="section-aside">Choose a mode and start exploring</span></div>
     <!-- Filter & Mode Controls -->
-    <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+    <div class="study-toolbar flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
       <!-- Mode Tabs -->
       <div class="flex items-center gap-1.5 p-1 bg-slate-900/80 rounded-xl border border-slate-800 text-xs">
         <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" data-mode="flashcard">
@@ -68,17 +81,18 @@
 
       <!-- Category & Search -->
       <div class="flex items-center gap-2">
-        <select id="category-select" class="bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-cyan-500">
+        <select id="category-select" aria-label="Filter by category" class="bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-cyan-500">
           <option value="all">Loading Categories...</option>
         </select>
         <div class="relative w-44 sm:w-52">
-          <input id="search-input" type="text" placeholder="Search cards..." class="w-full bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl pl-8 pr-3 py-2 outline-none focus:border-cyan-500 placeholder-slate-500">
+          <input id="search-input" aria-label="Search cards" type="text" placeholder="Search cards..." class="w-full bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl pl-8 pr-3 py-2 outline-none focus:border-cyan-500 placeholder-slate-500">
           <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
         </div>
       </div>
     </div>
 
     <!-- Flashcard Arena -->
+    <div class="card-intro"><span>YOUR STUDY CARD</span><span>Take your time · Think it through</span></div>
     <div class="perspective-container">
       <div id="card-inner" class="flashcard-inner">
 
@@ -162,10 +176,10 @@
       </button>
 
       <div class="flex items-center space-x-2">
-        <button id="btn-export-tsv" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as Anki TSV">
+        <button id="btn-export-tsv" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as Anki TSV" aria-label="Export as Anki TSV">
           <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
         </button>
-        <button id="btn-export-json" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as JSON">
+        <button id="btn-export-json" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as JSON" aria-label="Export as JSON">
           <i data-lucide="file-code" class="w-4 h-4 text-blue-400"></i>
         </button>
       </div>
@@ -173,6 +187,7 @@
 
   </main>
 
+  </div></div>
   <!-- Footer -->
   <footer class="border-t border-slate-900 bg-slate-950 py-6 text-xs text-slate-500 text-center">
     <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
