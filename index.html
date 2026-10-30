@@ -1,211 +1,24 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeuroLingo: Adaptive Language Mastery &amp; Spaced Repetition</title>
-  <meta name="description" content="Adaptive language learning web app and spaced repetition engine for advanced French mastery. Built by Fouad.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>ðŸ§ </text></svg>">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/app.css">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Practice English with short, spaced-repetition exercises.">
+  <title>NeuroLingo — English practice</title><link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div class="app-shell">
-  <aside class="sidebar">
-    <a class="brand" href="."><span class="brand-mark">✳</span><span>NeuroLingo<small>THE ART OF LEARNING FRENCH</small></span></a>
-    <div class="sidebar-label">YOUR STUDY SPACE</div>
-    <div class="sidebar-current"><i data-lucide="layers"></i> Practice cards</div>
-    <div class="sidebar-note"><span>À votre rythme.</span><p>A little practice today makes room for progress tomorrow.</p></div>
-    <a class="sidebar-link" href="https://github.com/foverse/neurolingo" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i> View on GitHub</a>
-  </aside>
-  <div class="page-shell">
-
-  <!-- Header -->
-  <header class="original-header border-b border-slate-900 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
-          <i data-lucide="brain" class="w-5 h-5"></i>
-        </div>
-        <div>
-          <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
-            NeuroLingo
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium">SRS Engine</span>
-          </h1>
-          <p class="text-[11px] text-slate-400">French Mastery &amp; Spaced Repetition</p>
-        </div>
-      </div>
-
-      <div class="flex items-center space-x-3 text-xs">
-        <a href="https://growthmaker.fr" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">
-          <i data-lucide="globe" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span>growthmaker.fr</span>
-        </a>
-        <a href="https://github.com/foverse/neurolingo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">
-          <i data-lucide="github" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">GitHub</span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <div class="topbar"><span>YOUR PERSONAL FRENCH PRACTICE</span><span class="topbar-right"><span class="status-dot"></span> Learning, one card at a time</span></div>
-  <main class="main-content">
-    <section class="welcome"><div><div class="eyebrow">YOUR DAILY PRACTICE <span>✳</span></div><h1>Make French feel <em>natural.</em></h1><p>Build confidence, one thoughtful repetition at a time.</p></div><div class="welcome-note"><span>LE MOT DU JOUR</span><strong>Persévérance</strong><small>Small steps. Lasting progress.</small></div></section>
-    <div class="section-heading"><div><span class="eyebrow">YOUR PROGRESS</span><h2>A little better every day.</h2></div><span class="section-aside">Your learning, at a glance</span></div>
-
-    <!-- Progress Overview -->
-    <div id="stats-overview"></div>
-
-    <div class="section-heading practice-heading"><div><span class="eyebrow">THE PRACTICE ROOM</span><h2>Ready when you are.</h2></div><span class="section-aside">Choose a mode and start exploring</span></div>
-    <!-- Filter & Mode Controls -->
-    <div class="study-toolbar flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
-      <!-- Mode Tabs -->
-      <div class="flex items-center gap-1.5 p-1 bg-slate-900/80 rounded-xl border border-slate-800 text-xs">
-        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" data-mode="flashcard">
-          Flashcards
-        </button>
-        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-mode="cloze">
-          Cloze Test
-        </button>
-        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-mode="error">
-          Error Hunt
-        </button>
-      </div>
-
-      <!-- Category & Search -->
-      <div class="flex items-center gap-2">
-        <select id="category-select" aria-label="Filter by category" class="bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-cyan-500">
-          <option value="all">Loading Categories...</option>
-        </select>
-        <div class="relative w-44 sm:w-52">
-          <input id="search-input" aria-label="Search cards" type="text" placeholder="Search cards..." class="w-full bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl pl-8 pr-3 py-2 outline-none focus:border-cyan-500 placeholder-slate-500">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Flashcard Arena -->
-    <div class="card-intro"><span>YOUR STUDY CARD</span><span>Take your time · Think it through</span></div>
-    <div class="perspective-container">
-      <div id="card-inner" class="flashcard-inner">
-
-        <!-- Card Front -->
-        <div class="card-face p-6 sm:p-8 bg-slate-900/90 border border-slate-800 rounded-2xl glow-card flex flex-col justify-between">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-800/60 text-xs">
-            <span id="card-category" class="font-medium text-cyan-400">Category</span>
-            <div class="flex items-center space-x-2">
-              <span id="card-type" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[11px]">Type</span>
-              <span id="card-counter" class="text-slate-500 font-mono text-[11px]">0 / 0</span>
-            </div>
-          </div>
-
-          <div id="card-front" class="my-auto py-6"></div>
-
-          <div class="flex items-center justify-between pt-4 border-t border-slate-800/60">
-            <button id="btn-speak" class="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-cyan-400 transition" title="Listen in French">
-              <i data-lucide="volume-2" class="w-4 h-4 text-cyan-400"></i>
-              <span>Pronounce</span>
-            </button>
-            <span class="text-xs text-slate-500 hidden sm:inline">Press Space to flip</span>
-          </div>
-        </div>
-
-        <!-- Card Back -->
-        <div class="card-face card-back p-6 sm:p-8 bg-slate-900/95 border border-cyan-900/40 rounded-2xl glow-card flex flex-col justify-between">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-800/60 text-xs">
-            <span class="font-medium text-emerald-400 flex items-center space-x-1">
-              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
-              <span>Answer Verified</span>
-            </span>
-            <span class="text-slate-500 font-mono text-[11px]">Rate to calculate next interval</span>
-          </div>
-
-          <div id="card-back" class="my-auto py-6"></div>
-
-          <div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">
-            <span class="text-xs text-slate-500">Keys 1 to 4 to rate</span>
-            <span class="text-xs text-slate-500">SM-2 Algorithm</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Rating Controls (Visible on back flip) -->
-    <div id="rating-controls" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-      <button class="btn-rate p-3 rounded-xl bg-rose-950/30 hover:bg-rose-950/50 text-rose-300 border border-rose-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="1">
-        <span>Again (1)</span>
-        <span class="text-[10px] text-rose-400/70 font-normal mt-0.5">Reset interval</span>
-      </button>
-      <button class="btn-rate p-3 rounded-xl bg-amber-950/30 hover:bg-amber-950/50 text-amber-300 border border-amber-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="2">
-        <span>Hard (2)</span>
-        <span class="text-[10px] text-amber-400/70 font-normal mt-0.5">Slower growth</span>
-      </button>
-      <button class="btn-rate p-3 rounded-xl bg-blue-950/30 hover:bg-blue-950/50 text-blue-300 border border-blue-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="3">
-        <span>Good (3)</span>
-        <span class="text-[10px] text-blue-400/70 font-normal mt-0.5">Normal spacing</span>
-      </button>
-      <button class="btn-rate p-3 rounded-xl bg-emerald-950/30 hover:bg-emerald-950/50 text-emerald-300 border border-emerald-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="4">
-        <span>Easy (4)</span>
-        <span class="text-[10px] text-emerald-400/70 font-normal mt-0.5">Long interval</span>
-      </button>
-    </div>
-
-    <!-- Action Bar -->
-    <div class="flex items-center justify-between gap-3 pt-2">
-      <div class="flex items-center space-x-2">
-        <button id="btn-prev" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 border border-slate-800 flex items-center space-x-1.5 transition">
-          <i data-lucide="chevron-left" class="w-4 h-4"></i>
-          <span>Prev</span>
-        </button>
-        <button id="btn-next" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 border border-slate-800 flex items-center space-x-1.5 transition">
-          <span>Next</span>
-          <i data-lucide="chevron-right" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-      <button id="btn-flip" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-xs font-bold text-white shadow-lg transition">
-        Show Answer (Space)
-      </button>
-
-      <div class="flex items-center space-x-2">
-        <button id="btn-export-tsv" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as Anki TSV" aria-label="Export as Anki TSV">
-          <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
-        </button>
-        <button id="btn-export-json" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as JSON" aria-label="Export as JSON">
-          <i data-lucide="file-code" class="w-4 h-4 text-blue-400"></i>
-        </button>
-      </div>
-    </div>
-
+  <header class="site-header"><div class="header-inner"><a class="brand" href="."><span class="brand-symbol">n.</span> NeuroLingo</a><span class="header-note">English practice</span><a class="github" href="https://github.com/foverse/neurolingo">GitHub</a></div></header>
+  <main class="workspace">
+    <div class="page-heading"><div><p class="kicker">Your practice</p><h1>Let’s work on your English.</h1><p>Read the prompt, think of your answer, then check it.</p></div><div class="review-count"><strong id="reviewed">0</strong><span>cards reviewed</span></div></div>
+    <div class="toolbar"><label for="category-select">Topic <select id="category-select"></select></label><div class="position"><span id="card-counter"></span><div class="progress-track"><div id="progress-bar"></div></div></div></div>
+    <section class="study-card" aria-label="Practice card">
+      <div class="card-top"><span id="card-category"></span><span id="card-type"></span></div>
+      <div class="card-content"><p class="prompt-label">Complete the sentence</p><h2 id="card-front"></h2><div id="answer" class="answer" hidden><span>Answer</span><p id="card-back"></p><p id="card-explanation"></p></div><button id="btn-flip" class="primary">Show answer</button></div>
+      <div class="card-bottom"><button id="btn-speak" class="text-button"><span aria-hidden="true">◖))</span> Listen</button><span class="keyboard-hint">Space to reveal</span></div>
+    </section>
+    <div id="rating-controls" class="ratings" hidden><span>How did you do?</span><div><button class="btn-rate" data-grade="1">Again</button><button class="btn-rate" data-grade="2">Hard</button><button class="btn-rate" data-grade="3">Good</button><button class="btn-rate" data-grade="4">Easy</button></div></div>
+    <nav class="card-navigation" aria-label="Card navigation"><button id="btn-prev">Previous</button><span>Take your time</span><button id="btn-next">Next</button></nav>
+    <p class="privacy-note">Your progress is saved in this browser. <a href="data/english_starter_cards.tsv" download>Download the English deck</a></p>
   </main>
-
-  </div></div>
-  <!-- Footer -->
-  <footer class="border-t border-slate-900 bg-slate-950 py-6 text-xs text-slate-500 text-center">
-    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>NeuroLingo (c) 2026. Built by <a href="https://growthmaker.fr" class="text-cyan-400 hover:underline">Fouad</a>.</p>
-      <div class="flex items-center space-x-4">
-        <a href="https://growthmaker.fr" class="hover:text-slate-300">growthmaker.fr</a>
-        <a href="https://github.com/foverse/neurolingo" class="hover:text-slate-300">GitHub Repository</a>
-        <a href="data/french_expert_1000_cards.tsv" class="hover:text-slate-300" download>Download 1000 Cards TSV</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="js/cards-data.js"></script>
-  <script src="js/srs-engine.js"></script>
-  <script src="js/app.js"></script>
-  <script>
-    lucide.createIcons();
-  </script>
+  <script src="js/english-cards.js"></script><script src="js/srs-engine.js"></script><script src="js/app.js"></script>
 </body>
 </html>
