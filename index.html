@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeuroLingo: Adaptive Language Mastery &amp; Spaced Repetition</title>
+  <meta name="description" content="Adaptive language learning web app and spaced repetition engine for advanced French mastery. Built by Fouad.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%22100%22%20%22100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md">
+          <i data-lucide="brain" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+            NeuroLingo
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium">SRS Engine</span>
+          </h1>
+          <p class="text-[11px] text-slate-400">French Mastery &amp; Spaced Repetition</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 text-xs">
+        <a href="https://growthmaker.fr" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">
+          <i data-lucide="globe" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>growthmaker.fr</span>
+        </a>
+        <a href="https://github.com/foverse/NeuroLingo" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl w-full mx-auto px-4 py-8 flex-1 space-y-6">
+
+    <!-- Progress Overview -->
+    <div id="stats-overview"></div>
+
+    <!-- Filter & Mode Controls -->
+    <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+      <!-- Mode Tabs -->
+      <div class="flex items-center gap-1.5 p-1 bg-slate-900/80 rounded-xl border border-slate-800 text-xs">
+        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" data-mode="flashcard">
+          Flashcards
+        </button>
+        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-mode="cloze">
+          Cloze Test
+        </button>
+        <button class="mode-tab px-3 py-1.5 rounded-lg font-medium transition bg-slate-900 text-slate-400 border border-slate-800 hover:text-white" data-mode="error">
+          Error Hunt
+        </button>
+      </div>
+
+      <!-- Category & Search -->
+      <div class="flex items-center gap-2">
+        <select id="category-select" class="bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl px-3 py-2 outline-none focus:border-cyan-500">
+          <option value="all">Loading Categories...</option>
+        </select>
+        <div class="relative w-44 sm:w-52">
+          <input id="search-input" type="text" placeholder="Search cards..." class="w-full bg-slate-900 text-xs text-slate-200 border border-slate-800 rounded-xl pl-8 pr-3 py-2 outline-none focus:border-cyan-500 placeholder-slate-500">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flashcard Arena -->
+    <div class="perspective-container">
+      <div id="card-inner" class="flashcard-inner">
+
+        <!-- Card Front -->
+        <div class="card-face p-6 sm:p-8 bg-slate-900/90 border border-slate-800 rounded-2xl glow-card flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/60 text-xs">
+            <span id="card-category" class="font-medium text-cyan-400">Category</span>
+            <div class="flex items-center space-x-2">
+              <span id="card-type" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[11px]">Type</span>
+              <span id="card-counter" class="text-slate-500 font-mono text-[11px]">0 / 0</span>
+            </div>
+          </div>
+
+          <div id="card-front" class="my-auto py-6"></div>
+
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/60">
+            <button id="btn-speak" class="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-cyan-400 transition" title="Listen in French">
+              <i data-lucide="volume-2" class="w-4 h-4 text-cyan-400"></i>
+              <span>Pronounce</span>
+            </button>
+            <span class="text-xs text-slate-500 hidden sm:inline">Press Space to flip</span>
+          </div>
+        </div>
+
+        <!-- Card Back -->
+        <div class="card-face card-back p-6 sm:p-8 bg-slate-900/95 border border-cyan-900/40 rounded-2xl glow-card flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800/60 text-xs">
+            <span class="font-medium text-emerald-400 flex items-center space-x-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              <span>Answer Verified</span>
+            </span>
+            <span class="text-slate-500 font-mono text-[11px]">Rate to calculate next interval</span>
+          </div>
+
+          <div id="card-back" class="my-auto py-6"></div>
+
+          <div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">
+            <span class="text-xs text-slate-500">Keys 1 to 4 to rate</span>
+            <span class="text-xs text-slate-500">SM-2 Algorithm</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rating Controls (Visible on back flip) -->
+    <div id="rating-controls" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+      <button class="btn-rate p-3 rounded-xl bg-rose-950/30 hover:bg-rose-950/50 text-rose-300 border border-rose-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="1">
+        <span>Again (1)</span>
+        <span class="text-[10px] text-rose-400/70 font-normal mt-0.5">Reset interval</span>
+      </button>
+      <button class="btn-rate p-3 rounded-xl bg-amber-950/30 hover:bg-amber-950/50 text-amber-300 border border-amber-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="2">
+        <span>Hard (2)</span>
+        <span class="text-[10px] text-amber-400/70 font-normal mt-0.5">Slower growth</span>
+      </button>
+      <button class="btn-rate p-3 rounded-xl bg-blue-950/30 hover:bg-blue-950/50 text-blue-300 border border-blue-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="3">
+        <span>Good (3)</span>
+        <span class="text-[10px] text-blue-400/70 font-normal mt-0.5">Normal spacing</span>
+      </button>
+      <button class="btn-rate p-3 rounded-xl bg-emerald-950/30 hover:bg-emerald-950/50 text-emerald-300 border border-emerald-900/40 text-xs font-semibold flex flex-col items-center transition" data-grade="4">
+        <span>Easy (4)</span>
+        <span class="text-[10px] text-emerald-400/70 font-normal mt-0.5">Long interval</span>
+      </button>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="flex items-center justify-between gap-3 pt-2">
+      <div class="flex items-center space-x-2">
+        <button id="btn-prev" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 border border-slate-800 flex items-center space-x-1.5 transition">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+          <span>Prev</span>
+        </button>
+        <button id="btn-next" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 border border-slate-800 flex items-center space-x-1.5 transition">
+          <span>Next</span>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <button id="btn-flip" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-xs font-bold text-white shadow-lg transition">
+        Show Answer (Space)
+      </button>
+
+      <div class="flex items-center space-x-2">
+        <button id="btn-export-tsv" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as Anki TSV">
+          <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
+        </button>
+        <button id="btn-export-json" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 transition" title="Export as JSON">
+          <i data-lucide="file-code" class="w-4 h-4 text-blue-400"></i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 text-xs text-slate-500 text-center">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>NeuroLingo (c) 2026. Built by <a href="https://growthmaker.fr" class="text-cyan-400 hover:underline">Fouad</a>.</p>
+      <div class="flex items-center space-x-4">
+        <a href="https://growthmaker.fr" class="hover:text-slate-300">growthmaker.fr</a>
+        <a href="https://github.com/foverse/NeuroLingo" class="hover:text-slate-300">GitHub Repository</a>
+        <a href="data/french_expert_1000_cards.tsv" class="hover:text-slate-300" download>Download 1000 Cards TSV</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/cards-data.js"></script>
+  <script src="js/srs-engine.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
