@@ -1,16 +1,16 @@
 {
   "name": "neurolingo",
   "version": "1.0.0",
-  "description": "Adaptive language learning engine and spaced repetition web application for advanced French mastery.",
+  "description": "A simple English practice app with local spaced-repetition progress.",
   "scripts": {
     "start": "npx serve .",
-    "validate": "python builder/validate_deck.py data/french_expert_1000_cards.tsv"
+    "validate": "python builder/validate_deck.py data/english_starter_cards.tsv"
   },
   "keywords": [
     "language-learning",
     "spaced-repetition",
     "anki",
-    "french",
+    "english",
     "web-app",
     "javascript"
   ],
